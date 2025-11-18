@@ -1,6 +1,7 @@
 from models import planet
 from models import bahn
 from math import sqrt
+from math import exp
 import os
 
 G = 6.67259*pow(10, -11)
@@ -39,7 +40,10 @@ def initPlanet(printOut):
 def vis_viva_equation(pl, point, a):
     return sqrt(G*pl.mass*(2/point-1/a))
 
-def getBedarf(startHeight, endHeight, planetName):
+def mass_equation(m0, ce, dV):
+    return m0*(1-exp(-dV/ce))
+
+def getVRequirement(startHeight, endHeight, planetName):
     planetObj = planet.Planet(name=planetName)
     startRadius = startHeight * 1000 + planetObj.radius
     endRadius = endHeight * 1000 + planetObj.radius
@@ -52,7 +56,7 @@ def test_21a(startHeight, endHeight):
 
     results = []
     for name in planetNames:
-        results.append(getBedarf(startHeight=startHeight, endHeight=endHeight, planetName=name))
+        results.append(getVRequirement(startHeight=startHeight, endHeight=endHeight, planetName=name))
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(current_dir, "hohmann_ergebnisse.txt")
@@ -75,4 +79,11 @@ def test_21a(startHeight, endHeight):
                 
     print(f"\nDaten wurden erfolgreich gespeichert in:\n{file_path}")
 
-test_21a(350, 900)
+def getFuelRequirement(planetName, startMass, ce, startHeight, endHeight):
+    dV = getVRequirement(startHeight=startHeight, endHeight=endHeight, planetName=planetName)
+    dM = mass_equation(startMass, ce, dV)
+    return dM
+
+#test_21a(350, 900)
+fuelReq = getFuelRequirement("Erde", 10000, 2500, 500, 50)
+print(f"{fuelReq:.3f}kg")
