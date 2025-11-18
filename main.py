@@ -39,19 +39,20 @@ def initPlanet(printOut):
 def vis_viva_equation(pl, point, a):
     return sqrt(G*pl.mass*(2/point-1/a))
 
+def getBedarf(startHeight, endHeight, planetName):
+    planetObj = planet.Planet(name=planetName)
+    startRadius = startHeight * 1000 + planetObj.radius
+    endRadius = endHeight * 1000 + planetObj.radius
+    initialBahn = bahn.Bahn("Initial", planetObj, 0, startRadius, startRadius, startRadius)
+    endBahn = bahn.Bahn("End", planetObj, 0, endRadius, endRadius, endRadius)
+    return hohmann_transfer(initialBahn=initialBahn, endBahn=endBahn, setPlanet=planetObj)
+
 def test_21a(startHeight, endHeight):
     planetNames = ['Venus', 'Erde', 'Mars', 'Jupiter', 'Saturn', 'Mond']
-    planetObjs = []
+
     results = []
     for name in planetNames:
-        planetObjs.append(planet.Planet(name=name))
-
-    for pl in planetObjs:
-        startRadius = startHeight * 1000 + pl.radius
-        endRadius = endHeight * 1000 + pl.radius
-        initialBahn = bahn.Bahn("Initial", pl, 0, startRadius, startRadius, startRadius)
-        endBahn = bahn.Bahn("End", pl, 0, endRadius, endRadius, endRadius)
-        results.append(hohmann_transfer(initialBahn=initialBahn, endBahn=endBahn, setPlanet=pl))
+        results.append(getBedarf(startHeight=startHeight, endHeight=endHeight, planetName=name))
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(current_dir, "hohmann_ergebnisse.txt")
