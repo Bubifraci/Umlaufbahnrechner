@@ -79,11 +79,44 @@ def test_21a(startHeight, endHeight):
                 
     print(f"\nDaten wurden erfolgreich gespeichert in:\n{file_path}")
 
+def test_21c():
+    #Werte in kg
+    startHeight = 725
+    endHeight = 50
+    m0 = 600
+
+    #In m/s; Für Monomethylhydrazin in einem Mischverhältnis von 2,2 mit N2O4
+    ce = 3400
+
+    fuelReq = getFuelRequirement("Erde", m0, ce, startHeight=startHeight, endHeight=endHeight)
+
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(current_dir, "geschwindigkeitsbedarf_ergebnis.txt")
+    with open(file_path, "w", encoding="utf-8") as f:
+            
+            header = f"Ergebnis Geschwindigkeitsbedarf mit Hydrazin und m0=600kg ({startHeight}km -> {endHeight}km)\n"
+            header += "-" * 40 + "\n"
+            
+            f.write(header)
+            print(header, end="")
+
+            line = f"{fuelReq:.3f} kg\n"
+            f.write(line)      
+            print(line, end="")
+                
+    print(f"\nDaten wurden erfolgreich gespeichert in:\n{file_path}")
+
 def getFuelRequirement(planetName, startMass, ce, startHeight, endHeight):
     dV = getVRequirement(startHeight=startHeight, endHeight=endHeight, planetName=planetName)
     dM = mass_equation(startMass, ce, dV)
     return dM
 
+#Aufgabe 2.1a)
 #test_21a(350, 900)
-fuelReq = getFuelRequirement("Erde", 10000, 2500, 500, 50)
-print(f"{fuelReq:.3f}kg")
+
+#Aufgabe 2.1b)
+#fuelReq = getFuelRequirement("Erde", 10000, 2500, 500, 50)
+#print(f"{fuelReq:.3f}kg")
+
+#Aufgabe 2.1c)
+test_21c()

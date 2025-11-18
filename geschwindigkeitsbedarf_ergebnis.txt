@@ -1,0 +1,3 @@
+Ergebnis Geschwindigkeitsbedarf mit Hydrazin und m0=600kg (725km -> 50km)
+----------------------------------------
+63.954 kg

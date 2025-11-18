@@ -1,0 +1,8 @@
+Ergebnisse Hohmann-Transfer (350km -> 900km)
+----------------------------------------
+Venus     : 287.43162 m/s
+Erde      : 296.39096 m/s
+Mars      : 223.63984 m/s
+Jupiter   : 165.20160 m/s
+Saturn    : 118.59739 m/s
+Mond      : 168.56412 m/s
