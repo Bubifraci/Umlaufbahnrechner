@@ -6,6 +6,8 @@ class Bahn():
             localE = input(f"Gebe die Exzentrizität e deiner Bahn {title} an (/ falls unbekannt): ")
             if(localE.isnumeric()): 
                 self.e = float(localE)
+            else:
+                self.e = None
 
             if(self.e != 0.0):
                 self.rp = pl.radius + 1000.0 * float(input(f"Gebe die Höhe vom Perigäum deiner Bahn {title} an (in km): "))

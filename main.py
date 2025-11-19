@@ -119,4 +119,7 @@ def getFuelRequirement(planetName, startMass, ce, startHeight, endHeight):
 #print(f"{fuelReq:.3f}kg")
 
 #Aufgabe 2.1c)
-test_21c()
+#test_21c()
+
+#Free prompting
+#print(f"Die benötigte Geschwindigkeit für den Transfer beträgt {hohmann_transfer():.3f} m/s")
